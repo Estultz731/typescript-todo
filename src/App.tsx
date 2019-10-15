@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 //Types
-interface Todo {
+interface TodoInterface {
   id: number;
   description: string;
   completed: boolean;
@@ -14,7 +14,10 @@ interface State {
   newTodoDescription: string;
 }
 
-class Todo implements Todo {
+class Todo implements TodoInterface {
+  id: number;
+  description: string;
+  completed: boolean;
   constructor(description: string) {
     this.description = description;
     this.completed = false;
@@ -72,6 +75,18 @@ const App: React.FC = () => {
               <td className='border px-4 py-2'>{todo.description}</td>
               <td className='border px-4 py-2'>
                 {todo.completed ? 'complete' : 'incomplete'}
+              </td>
+              <td className='border px-4 py-2'>
+                <button
+                  onClick={() => {
+                    setState({
+                      ...state,
+                      todos: state.todos.filter(td => td.id !== todo.id)
+                    });
+                  }}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
